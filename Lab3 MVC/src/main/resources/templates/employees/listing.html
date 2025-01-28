@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <i class="fa-solid fa-user"></i>
+        Employees List &nbsp;&nbsp;
+        <a href="/employees/create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Employee</a>
+    </a>
+</nav>
+<table class="table table-hover">
+    <thead class="bg-dark text-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${employees.size() == 0}">
+        <td colspan="5" class="text-center">No record found!</td>
+    </tr>
+    <tr th:each="employee : ${employees}">
+        <th scope="row" th:text="${employee.id}"></th>
+        <td th:text="${employee.firstName}"></td>
+        <td th:text="${employee.lastName}"></td>
+        <td th:text="${employee.email}"></td>
+        <td>
+            <a th:href="@{/employees/edit/{id}(id=${employee.id})}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a>
+            <a th:href="@{/employees/delete/{id}(id=${employee.id})}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
