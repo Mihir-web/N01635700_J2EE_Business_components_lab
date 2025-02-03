@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Student</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-fixed-top navbar-light bg-light shadow w-100" style="position: fixed; z-index: 1;">
+  <a class="navbar-brand" href="#">
+    Add New Student &nbsp;&nbsp;
+    <a href="/students" class="btn btn-outline-info"><i class="fa-solid fa-arrow-left"></i> Back to Listing</a>
+  </a>
+</nav>
+<br><br>
+<div class="d-flex justify-content-center">
+  <div class="card w-50 my-5 shadow">
+    <div class="card-body">
+      <h4 class="text-secondary">Add New Student</h4>
+      <hr>
+<form th:action="@{/addStudent}" th:object="${student}"  method="post">
+  <div class="form-group">
+    <label for="id" class="text-secondary">ID</label>
+    <input type="text" id="id" name="id" placeholder="Id" class="form-control" required/>
+  </div>
+  <div class="form-group">
+    <label for="name" class="text-secondary">Full Name</label>
+    <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" required/>
+  </div>
+  <div class="form-group">
+    <label for="age" class="text-secondary">Age</label>
+    <input type="text" id="age" name="age" class="form-control" placeholder="Age" required/>
+  </div>
+  <div class="form-group">
+    <label class="text-secondary">Gender</label>
+    <div class="d-flex">
+    <div class="form-check ">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" value="Male" name="gender">Male
+      </label>
+    </div>
+    <div class="form-check mx-3">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" value="Female" name="gender">Female
+      </label>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" value="Other" name="gender">Other
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email" class="text-secondary">Email</label>
+    <input type="email" id="email" name="email" placeholder="Email" class="form-control" required/>
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="city" class="text-secondary">City</label>
+    <input type="text" id="city" name="city" placeholder="City" class="form-control" required/>
+  </div>
+  <div class="form-group">
+    <label for="dob" class="text-secondary">Date of Birth</label>
+    <input type="date" id="dob" name="dob" placeholder="Date of birth" class="form-control" required/>
+  </div>
+  <input type="submit" class="btn btn-success" value="Add Student"/>
+</form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
