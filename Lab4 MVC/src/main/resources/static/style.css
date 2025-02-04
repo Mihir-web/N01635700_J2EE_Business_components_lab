@@ -1,0 +1,15 @@
+body{
+    background-image: url('bg.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+table{
+    background: #f0f0f0;
+}
+.footer{
+    background: #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    padding:10px 0;
+}
