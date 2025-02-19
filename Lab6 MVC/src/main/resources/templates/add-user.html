@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up | J2EE Lab 6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img th:src="@{/icon.png}" alt="Logo" class="icon"/>
+        Add Employee &nbsp;&nbsp;
+    </a>
+</nav>
+<div class="d-flex justify-content-center">
+    <div class="card w-50 my-5">
+        <div class="card-body">
+            <h4 class="text-center">Welcome to User Management</h4>
+            <p th:text="${message}"></p>
+            <h5 class="text-center text-primary">Sign Up</h5>
+
+            <form action="#" method="post" th:action="@{/signup}" th:object="${user}">
+
+                <div class="form-group mb-3">
+                    <label for="username">User Name</label>
+                    <input th:field="*{userName}" id="username" class="form-control" type="text" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="password">Password</label>
+                    <input th:field="*{password}" id="password" class="form-control" type="password" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="firstName">First Name</label>
+                    <input th:field="*{firstName}" id="firstName" class="form-control" type="text" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="lastName">Last Name</label>
+                    <input th:field="*{lastName}" id="lastName" class="form-control" type="text" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="email">Email</label>
+                    <input th:field="*{email}" id="email" class="form-control" type="email" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Gender</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="gender" value="Male"> Male
+                        </label>
+
+                        <label class="ml-3">
+                            <input type="radio" name="gender" value="Female"> Female
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="form-group mb-3">
+                    <label for="dob">DOB</label>
+                    <input th:field="*{dob}" id="dob" class="form-control" type="date" required>
+                </div>
+
+                <input type="submit" class="btn btn-success w-100" value="Sign Up">
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="footer text-center">
+    <p>Student Name: Mihirbhai Hiteshbahi Hirpara</p>
+    <p>Student Id: N01635700</p>
+</footer>
+</body>
+</html>
