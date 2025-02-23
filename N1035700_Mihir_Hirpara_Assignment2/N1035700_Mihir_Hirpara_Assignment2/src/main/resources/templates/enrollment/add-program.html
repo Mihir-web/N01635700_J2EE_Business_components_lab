@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Program | Enterprise Application Development</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<nav class="navbar navbar-light bg-dark">
+  <a class="navbar-brand" href="#">
+    <img th:src="@{/icon.png}" alt="Logo" class="icon"/>
+    &nbsp;&nbsp; Mihir's E-Learning Platform &nbsp;&nbsp;
+  </a>
+  <a th:href="@{/logout}" class="btn btn-secondary">Log out</a>
+</nav>
+
+<div class="d-flex justify-content-center">
+  <div class="card w-50 my-5">
+    <div class="card-body">
+      <p th:text="${message}"></p>
+
+      <form id="enrollForm" th:action="@{/enrollments/enroll}" method="post">
+        <h3 class="text-center mb-5"><span class="text-primary">Enroll</span> in New Program</h3>
+
+        <div class="form-group">
+          <label for="programCode">Select Program <span class="text-danger">*</span></label>
+          <select name="programCode" class="form-control" id="programCode" required onchange="updateFee()">
+            <option value="" selected disabled>Select a program</option>
+            <option th:each="program : ${programs}"
+                    th:value="${program.programCode}"
+                    th:data-fee="${program.durationFee}"
+                    th:text="${program.programName}">
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="amountPaid">Amount Paid <span class="text-danger">*</span></label>
+          <input type="number" name="amountPaid" class="form-control" id="amountPaid" step="0.01" required readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="card_holder_name">Card Holder Name <span class="text-danger">*</span></label>
+          <input type="text" name="card_holder_name" class="form-control" id="card_holder_name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="card_no">Card No <span class="text-danger">*</span></label>
+          <input type="text" name="card_number" class="form-control" id="card_no" required pattern="\d{16}"
+                 title="Card number must be exactly 16 digits (no spaces or dashes)">
+        </div>
+
+        <div class="form-group">
+          <label for="expiry">Expiry Date <span class="text-danger">*</span></label>
+          <input type="text" name="expiry" class="form-control" id="expiry" required pattern="^(0[1-9]|1[0-2])\/\d{2}$"
+                 title="Enter a valid expiry date in MM/YY format">
+        </div>
+
+        <div class="form-group">
+          <label for="cvv">CVV <span class="text-danger">*</span></label>
+          <input type="text" name="cvv" class="form-control" id="cvv" required pattern="\d{3,4}"
+                 title="CVV must be 3 or 4 digits">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enroll</button>
+        <a th:href="@{/enrollments/}" class="btn btn-secondary">Cancel</a>
+      </form>
+
+      <br>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("enrollForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent actual form submission
+
+    Swal.fire({
+      title: "Payment Successful!",
+      text: "You have been enrolled successfully.",
+      icon: "success",
+      confirmButtonText: "OK"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById("enrollForm").submit(); // Submit the form after confirmation
+      }
+    });
+  });
+
+  function updateFee() {
+    var dropdown = document.getElementById("programCode");
+    var selectedOption = dropdown.options[dropdown.selectedIndex];
+    var fee = selectedOption.getAttribute("data-fee");
+
+    document.getElementById("amountPaid").value = fee ? fee : "";
+  }
+</script>
+
+</body>
+</html>
