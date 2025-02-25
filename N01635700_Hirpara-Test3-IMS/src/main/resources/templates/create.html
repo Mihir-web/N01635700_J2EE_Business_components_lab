@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+</head>
+<body>
+    <form th:action="@{/products/store}" th:object="${product}" method="post">
+        <label for="Name">Product Name *</label>
+        <input type="text" th:field="*{name}" id="Name" placeholder="Product Name">
+        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        <br>
+        <label for="Description">Description *</label>
+        <input type="text" th:field="*{description}" id="Description" placeholder="Description">
+        <small  th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+        <br>
+        <label for="Price">Price <span>*</span></label>
+        <input type="text" th:field="*{price}" id="Price" placeholder="Price">
+        <small  th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
+        <br>
+        <label for="Stock">Stock <span>*</span></label>
+        <input type="text" th:field="*{stock}" id="Stock" placeholder="Stock">
+        <small  th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></small>
+        <br>
+        <button type="submit">Add Product</button>
+    </form>
+</body>
+</html>

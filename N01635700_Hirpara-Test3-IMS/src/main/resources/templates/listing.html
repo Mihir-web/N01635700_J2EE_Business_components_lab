@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+<a th:href="@{/products/create}">Add Product</a>
+<table>
+    <thead >
+    <tr>
+        <th>#</th>
+        <th>Product Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${products.size() == 0}">
+        <td colspan="5">No record found!</td>
+    </tr>
+
+    <tr th:each="product : ${products}">
+        <th th:text="${product.id}"></th>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.stock}"></td>
+        <td>
+            <a th:href="@{/products/edit/{id}(id=${product.id})}">Update</a>
+            <a th:href="@{/products/delete/{id}(id=${product.id})}" >Delete</a>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>
