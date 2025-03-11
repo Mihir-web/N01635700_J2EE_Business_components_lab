@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b90ea07d-b22d-446d-9919-9cba3ebc0199" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="Interface" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2sGELNMJf2WoyJiKjVgIeXn91IM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.welcome.html.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.MvcApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Mihir/Humber/Sem 4/J2EE Business Component/N01635700_J2EE_Business_components_lab/N1035700_Mihir_Hirpara_Assignment3_backend/N1035700_Mihir_Hirpara_Assignment3_backend/pom.xml",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Mihir\Humber\Sem 4\J2EE Business Component\N01635700_J2EE_Business_components_lab\Lab6 MVC\src\main\resources\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Mihir\Humber\Sem 4\J2EE Business Component\N01635700_J2EE_Business_components_lab\Lab4 MVC\src\main\resources\static" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.week3.MVC.config" />
+      <recent name="com.week3.MVC.repository" />
+      <recent name="com.week3.MVC.service" />
+      <recent name="com.week3.MVC.controller" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.MvcApplication">
+    <configuration name="welcome.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Lab6 MVC/MVC/templates/welcome.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="MvcApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="MVC" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.week3.MVC.MvcApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.welcome.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b90ea07d-b22d-446d-9919-9cba3ebc0199" name="Changes" comment="" />
+      <created>1738073454672</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738073454672</updated>
+      <workItem from="1738073456123" duration="4257000" />
+      <workItem from="1738364375725" duration="651000" />
+      <workItem from="1738463902202" duration="724000" />
+      <workItem from="1738469682757" duration="699000" />
+      <workItem from="1738610457240" duration="6806000" />
+      <workItem from="1738623632936" duration="27000" />
+      <workItem from="1738676130179" duration="11844000" />
+      <workItem from="1738731027830" duration="1481000" />
+      <workItem from="1739281560698" duration="471000" />
+      <workItem from="1739427164883" duration="3251000" />
+      <workItem from="1739859812304" duration="162000" />
+      <workItem from="1739944681913" duration="1890000" />
+      <workItem from="1739980947450" duration="4133000" />
+      <workItem from="1740023856498" duration="20587000" />
+      <workItem from="1740109161174" duration="600000" />
+      <workItem from="1740164546952" duration="19175000" />
+      <workItem from="1740243195803" duration="8145000" />
+      <workItem from="1740253259375" duration="6714000" />
+      <workItem from="1740279768801" duration="938000" />
+      <workItem from="1741049366714" duration="60000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

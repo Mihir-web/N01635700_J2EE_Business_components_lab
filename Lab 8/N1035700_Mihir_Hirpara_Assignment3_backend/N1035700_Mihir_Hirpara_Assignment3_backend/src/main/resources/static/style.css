@@ -1,0 +1,29 @@
+.icon{
+    height:40px;
+    width:40px;
+}
+table{
+    background: #f0f0f0;
+}
+.footer{
+    background: #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    padding:10px 0;
+}
+
+.required-field{
+    color:red;
+}
+
+.nav-link{
+    color: azure;
+    margin:5px 0;
+    background: #5e5d5d !important;
+    padding:10px 10px !important;
+    color:#fff !important;
+}
+
+.nav-link:hover{
+    background: rgba(94, 93, 93, 0.68) !important;
+}
