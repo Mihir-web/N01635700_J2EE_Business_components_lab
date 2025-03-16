@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" th:href="@{/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-light bg-dark">
@@ -21,80 +22,94 @@
         <div class="card-body">
             <h4 class="text-center">Student Registration</h4>
 
-            <!-- Display message only if present -->
-            <p th:if="${message}" th:text="${message}" class="alert alert-info text-center"></p>
+            <p id="message" class="alert alert-info text-center" style="display: none;"></p>
 
             <h5 class="text-center text-primary">Sign Up</h5>
 
-            <form onsubmit="registerUser(event)">
+            <form id="signUpForm">
                 <div class="form-group">
-                <label>First Name <span class="required-field">*</span></label>
-                <input type="text" name="firstName" id="firstName"  class="form-control" required/>
+                    <label>First Name <span class="required-field">*</span></label>
+                    <input type="text" id="firstName" class="form-control" />
+                    <span id="firstNameError" style="color: red;"></span>
                 </div>
                 <div class="form-group">
-                <label>Last Name<span class="required-field">*</span></label>
-                <input type="text" name="lastName" id="lastName" class="form-control" required/>
+                    <label>Last Name <span class="required-field">*</span></label>
+                    <input type="text" id="lastName" class="form-control" />
+                    <span id="lastNameError" style="color: red;"></span>
                 </div>
                 <div class="form-group">
-                    <label>Email<span class="required-field">*</span></label>
-                    <input type="text" name="email" id="email" class="form-control" required/>
+                    <label>Email <span class="required-field">*</span></label>
+                    <input type="text" id="email" class="form-control" />
+                    <span id="emailError" style="color: red;"></span>
                 </div>
                 <div class="form-group">
-                <label>Username<span class="required-field">*</span></label>
-                <input type="text" name="userName" id="userName" class="form-control" required/>
+                    <label>Username <span class="required-field">*</span></label>
+                    <input type="text" id="userName" class="form-control" />
+                    <span id="userNameError" style="color: red;"></span>
                 </div>
                 <div class="form-group">
-                <label>Password<span class="required-field">*</span></label>
-                <input type="password" name="password" id="password" class="form-control" required/>
+                    <label>Password <span class="required-field">*</span></label>
+                    <input type="password" id="password" class="form-control" />
+                    <span id="passwordError" style="color: red;"></span>
                 </div>
                 <div class="form-group">
-                <label>Address<span class="required-field">*</span></label>
-                <input type="text" name="address" id="address" class="form-control" required/>
+                    <label>Address <span class="required-field">*</span></label>
+                    <input type="text" id="address" class="form-control" />
+                    <span id="addressError" style="color: red;"></span>
                 </div>
                 <div class="form-group">
-                <label>City<span class="required-field">*</span></label>
-                <input type="text" name="city" id="city" class="form-control" required/>
+                    <label>City <span class="required-field">*</span></label>
+                    <input type="text" id="city" class="form-control" />
+                    <span id="cityError" style="color: red;"></span>
                 </div>
                 <div class="form-group">
-                <label>Postal Code<span class="required-field">*</span></label>
-                <input type="text" name="postalCode" id="postalCode" class="form-control" required/>
+                    <label>Postal Code <span class="required-field">*</span></label>
+                    <input type="text" id="postalCode" class="form-control" />
+                    <span id="postalCodeError" style="color: red;"></span>
                 </div>
                 <button type="submit" class="btn btn-success">Register</button>
-                <a th:href="@{/}">Login</a>
+                <a href="/" class="btn btn-secondary">Login</a>
             </form>
-
         </div>
     </div>
 </div>
+
 <script>
-    function registerUser(event) {
-        event.preventDefault();
+    $(document).ready(function() {
+        $('#signUpForm').on('submit', function(event) {
+            event.preventDefault();
 
-        const userData = {
-            firstName: document.getElementById("firstName").value,
-            lastName: document.getElementById("lastName").value,
-            email: document.getElementById("email").value,
-            username: document.getElementById("userName").value,
-            password: document.getElementById("password").value,
-            address: document.getElementById("address").value,
-            city: document.getElementById("city").value,
-            postalCode: document.getElementById("postalCode").value
-        };
+            const userData = {
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                email: $('#email').val(),
+                userName: $('#userName').val(),
+                password: $('#password').val(),
+                address: $('#address').val(),
+                city: $('#city').val(),
+                postalCode: $('#postalCode').val()
+            };
 
-        fetch("http://localhost:8090/api/users/signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(userData)
-        })
-            .then(response => response.text())
-            .then(message => {
-                alert(message);
-                if (!message.startsWith("Error")) {
-                    window.location.href = "/login"; // Redirect to login on success
+            // Make POST request to the API
+            $.ajax({
+                url: 'http://localhost:8090/api/signup',  // REST API URL
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(userData),
+                success: function(response) {
+                    $('#message').text(response.message).show();
+                },
+                error: function(xhr) {
+                    const errors = xhr.responseJSON.errors;
+                    if (errors) {
+                        for (const [field, message] of Object.entries(errors)) {
+                            $(`#${field}Error`).text(message);
+                        }
+                    }
                 }
-            })
-            .catch(error => console.error("Error:", error));
-    }
+            });
+        });
+    });
 </script>
 </body>
 </html>

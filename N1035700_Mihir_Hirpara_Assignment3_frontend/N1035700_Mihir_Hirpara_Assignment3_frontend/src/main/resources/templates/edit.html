@@ -7,69 +7,116 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" th:href="@{/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-light bg-dark">
     <a class="navbar-brand text-white" href="#">
         <img th:src="@{/icon.png}" alt="Logo" class="icon"/>
         Edit Profile &nbsp;&nbsp;
-
-        <a th:href="@{/logout}" class="btn btn-secondary">Log out</a>
+        <a href="/logout" class="btn btn-secondary">Log out</a>
     </a>
 </nav>
+
 <div class="d-flex justify-content-center">
     <div class="card w-50 my-5">
         <div class="card-body">
-            <form th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+            <form id="editProfileForm">
                 <div class="form-group">
                     <label for="firstName">First Name <span class="text-danger">*</span></label>
-                    <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="First Name">
-                    <small class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
+                    <input type="text" id="firstName" class="form-control" placeholder="First Name">
+                    <small class="text-danger" id="firstNameError"></small>
                 </div>
-
                 <div class="form-group">
                     <label for="lastName">Last Name <span class="text-danger">*</span></label>
-                    <input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Last Name">
-                    <small class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
+                    <input type="text" id="lastName" class="form-control" placeholder="Last Name">
+                    <small class="text-danger" id="lastNameError"></small>
                 </div>
-
                 <div class="form-group">
                     <label for="email">Email <span class="text-danger">*</span></label>
-                    <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email">
-                    <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                    <input type="text" id="email" class="form-control" placeholder="Email">
+                    <small class="text-danger" id="emailError"></small>
                 </div>
-
-                <input type="hidden" th:field="*{userName}" class="form-control">
-
+                <input type="hidden" id="userName" />
                 <div class="form-group">
                     <label for="address">Address <span class="text-danger">*</span></label>
-                    <input type="text" th:field="*{address}" class="form-control" id="address" placeholder="Address">
-                    <small class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+                    <input type="text" id="address" class="form-control" placeholder="Address">
+                    <small class="text-danger" id="addressError"></small>
                 </div>
-
                 <div class="form-group">
                     <label for="city">City <span class="text-danger">*</span></label>
-                    <input type="text" th:field="*{city}" class="form-control" id="city" placeholder="City">
-                    <small class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></small>
+                    <input type="text" id="city" class="form-control" placeholder="City">
+                    <small class="text-danger" id="cityError"></small>
                 </div>
-
                 <div class="form-group">
                     <label for="postalCode">Postal Code <span class="text-danger">*</span></label>
-                    <input type="text" th:field="*{postalCode}" class="form-control" id="postalCode" placeholder="Postal Code">
-                    <small class="text-danger" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></small>
+                    <input type="text" id="postalCode" class="form-control" placeholder="Postal Code">
+                    <small class="text-danger" id="postalCodeError"></small>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a th:href="@{/welcome}" class="btn btn-secondary">Cancel</a>
-                <!-- Display global form error messages -->
-                <div class="alert alert-danger mt-3" th:if="${#fields.hasGlobalErrors()}">
-                    <ul>
-                        <li th:each="error : ${#fields.globalErrors()}" th:text="${error}"></li>
-                    </ul>
-                </div>
+                <a href="/welcome" class="btn btn-secondary">Cancel</a>
             </form>
+
+            <div class="alert alert-danger mt-3" id="globalError" style="display: none;">
+                <ul id="globalErrorList"></ul>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        const userId = 1;  // You can dynamically load this
+
+        // Fetch user data to populate the form
+        $.ajax({
+            url: `http://localhost:8090/api/user/${userId}`,  // REST API URL for fetching user data
+            type: 'GET',
+            success: function(response) {
+                $('#firstName').val(response.firstName);
+                $('#lastName').val(response.lastName);
+                $('#email').val(response.email);
+                $('#userName').val(response.userName);
+                $('#address').val(response.address);
+                $('#city').val(response.city);
+                $('#postalCode').val(response.postalCode);
+            }
+        });
+
+        // Handle form submission
+        $('#editProfileForm').on('submit', function(event) {
+            event.preventDefault();
+
+            const updatedData = {
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                email: $('#email').val(),
+                userName: $('#userName').val(),
+                address: $('#address').val(),
+                city: $('#city').val(),
+                postalCode: $('#postalCode').val()
+            };
+
+            $.ajax({
+                url: `/api/user/${userId}`,  // REST API URL for updating user data
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedData),
+                success: function(response) {
+                    window.location.href = "/welcome";
+                },
+                error: function(xhr) {
+                    const errors = xhr.responseJSON.errors;
+                    if (errors) {
+                        for (const [field, message] of Object.entries(errors)) {
+                            $(`#${field}Error`).text(message);
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

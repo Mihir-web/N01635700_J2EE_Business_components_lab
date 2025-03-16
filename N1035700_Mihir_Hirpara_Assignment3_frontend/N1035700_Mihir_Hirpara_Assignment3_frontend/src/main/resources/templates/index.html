@@ -7,39 +7,71 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" th:href="@{/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-light bg-dark">
     <a class="navbar-brand text-white" href="#">
         <img th:src="@{/icon.png}" alt="Logo" class="icon"/>
         &nbsp;&nbsp; Mihir's E-Learning Platform &nbsp;&nbsp;
-
     </a>
 </nav>
 <div class="d-flex justify-content-center">
     <div class="card w-50 my-5">
         <div class="card-body">
             <h4 class="text-center">Welcome to E-learning Platform</h4>
-            <p th:text="${message}"></p>
-                <h5 class="text-center text-primary">Enter Login Detail</h5>
-                <form action="#" method="post" th:action="@{/login}">
-
-                    <div class="form-group">
-                        <label for="userName">UserName:</label>
-                        <input name="userName" id="userName" class="form-control" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input name="password" id="password" class="form-control" type="password">
-                    </div>
-                    <input name="login" class="btn btn-primary" type="submit">
-                </form>
-                <br>
-                <th:block th:if="${response=='added'}">Please login now !!</th:block>
-                <p>Not registered yet? <a th:href="@{/add}">Create an Account</a></p>
-            </div>
+            <p id="message"></p>
+            <h5 class="text-center text-primary">Enter Login Details</h5>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="userName">UserName:</label>
+                    <input name="userName" id="userName" class="form-control" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input name="password" id="password" class="form-control" type="password" required>
+                </div>
+                <input id="loginBtn" class="btn btn-primary" type="submit" value="Login">
+            </form>
+            <br>
+            <p>Not registered yet? <a href="/add">Create an Account</a></p>
+        </div>
     </div>
 </div>
+
+<script>
+    // Submit login form via AJAX
+    $('#loginForm').submit(function (event) {
+        event.preventDefault();
+
+        // Get form data
+        const userName = $('#userName').val();
+        const password = $('#password').val();
+
+        // Send login request to the backend using Fetch API
+        fetch('http://localhost:8090/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userName, password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // If login is successful, redirect to dashboard
+                    window.location.href = '/welcome';
+                } else {
+                    // If login fails, display error message
+                    $('#message').html('<span class="text-danger">Invalid username or password!</span>');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                $('#message').html('<span class="text-danger">An error occurred. Please try again.</span>');
+            });
+    });
+</script>
 
 </body>
 </html>

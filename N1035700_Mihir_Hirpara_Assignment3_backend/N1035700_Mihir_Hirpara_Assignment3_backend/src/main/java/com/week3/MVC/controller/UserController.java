@@ -7,13 +7,15 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/api/users")
+//@RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
@@ -24,7 +26,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/students")
+    // ------------------- REST API -------------------
+
+    @GetMapping("/api/students")
     public ResponseEntity<?> getAllStudents(HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (loggedInUser == null || loggedInUser.getIsAdmin() != 1) {
@@ -38,14 +42,14 @@ public class UserController {
         return ResponseEntity.ok(students);
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/api/signup")
     public ResponseEntity<?> addNewUser(@Valid @RequestBody User user) {
         logger.info("Received request to add student: {}", user.getUserName());
         userService.addUser(user);
         return ResponseEntity.ok("User registered successfully");
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public ResponseEntity<?> userLogin(@RequestBody User loginRequest, HttpSession session) {
         logger.info("Received request to login for user: {}", loginRequest.getUserName());
         User user = userService.userLogin(loginRequest.getUserName(), loginRequest.getPassword());
@@ -58,17 +62,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/welcome")
-    public ResponseEntity<?> welcomePage(HttpSession session) {
-        User user = (User) session.getAttribute("loggedInUser");
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(401).body("Unauthorized");
-        }
-    }
-
-    @PutMapping("/update/{id}")
+    @PutMapping("/api/update/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody User user, HttpSession session) {
         User existingUser = userService.findByStudentId(id);
         if (existingUser == null) {
@@ -85,13 +79,7 @@ public class UserController {
         return ResponseEntity.ok("User updated successfully");
     }
 
-    @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpSession session) {
-        session.invalidate();
-        return ResponseEntity.ok("Logged out successfully");
-    }
-
-    @DeleteMapping("/students/delete/{id}")
+    @DeleteMapping("/api/students/delete/{id}")
     public ResponseEntity<?> softDeleteUser(@PathVariable Long id, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         if (loggedInUser == null || loggedInUser.getIsAdmin() != 1) {

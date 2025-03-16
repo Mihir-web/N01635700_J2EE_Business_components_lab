@@ -3,8 +3,11 @@ package com.week3.MVC.service;
 import com.week3.MVC.entity.Enrollment;
 import com.week3.MVC.repository.EnrollmentRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @Service
 public class EnrollmentService {
 

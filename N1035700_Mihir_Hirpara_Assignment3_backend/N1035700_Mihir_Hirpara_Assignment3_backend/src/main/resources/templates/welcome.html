@@ -1,63 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Welcome | Enterprise Application Development</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="navbar navbar-light bg-dark">
     <a class="navbar-brand text-white" href="#">
-        <img th:src="@{/icon.png}" alt="Logo" class="icon"/>
+        <img src="/icon.png" alt="Logo" class="icon"/>
         &nbsp; Mihir's E-learning Platform &nbsp;&nbsp;
-
     </a>
-    <a th:href="@{/logout}" class="btn btn-secondary">Log out</a>
+    <a href="/logout" class="btn btn-secondary">Log out</a>
 </nav>
 
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2  min-vh-100">
-
-                    <span class="fs-5 d-none d-sm-inline text-white">Menu</span>
-
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+                <span class="fs-5 d-none d-sm-inline text-white">Menu</span>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a th:href="@{/edit/{id}(id=${session.loggedInUser.id})}" class="nav-link align-middle px-0">
+                        <a href="#" id="editProfileLink" class="nav-link align-middle px-0">
                             <i class="fs-4 bi-house"></i>
                             <span class="ms-1 d-none d-sm-inline">Update Profile</span>
                         </a>
                     </li>
-                    <li class="nav-item" th:if="${session.loggedInUser != null and session.loggedInUser.isAdmin == 0}">
-                        <a th:href="@{/enrollments/}" class="nav-link align-middle px-0">
+                    <li class="nav-item" id="programsLink" style="display:none;">
+                        <a href="#" class="nav-link align-middle px-0">
                             <i class="fs-4 bi-house"></i>
                             <span class="ms-1 d-none d-sm-inline">Programs</span>
                         </a>
                     </li>
-                    <li class="nav-item" th:if="${session.loggedInUser != null and session.loggedInUser.isAdmin == 1}">
-                        <a th:href="@{/students}" class="nav-link align-middle px-0">
+                    <li class="nav-item" id="studentsLink" style="display:none;">
+                        <a href="#" class="nav-link align-middle px-0">
                             <i class="fs-4 bi-house"></i>
                             <span class="ms-1 d-none d-sm-inline">Students</span>
                         </a>
                     </li>
-
-
-
                 </ul>
-
             </div>
         </div>
+
         <div class="col py-3">
-            <h1>Welcome, <span class="text-info"><span th:text="${firstName}">First Name</span> <span th:text="${lastName}">Last Name</span></span>!</h1>
-            <p class="text-success">You are logged in successfully!</p>
+            <h1>Welcome, <span class="text-info" id="userName"></span>!</h1>
+            <p class="text-success" id="loginMessage">You are logged in successfully!</p>
         </div>
     </div>
 </div>
 
+<script>
+    // Function to get user data from the API
+    async function getUserData() {
+        try {
+            const response = await fetch('/api/user', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')  // Assuming token-based auth
+                }
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                // Display the user's first and last name
+                document.getElementById('userName').textContent = `${data.firstName} ${data.lastName}`;
+
+                // Show relevant menu items based on user role
+                if (data.isAdmin === 0) {
+                    document.getElementById('programsLink').style.display = 'block';
+                } else if (data.isAdmin === 1) {
+                    document.getElementById('studentsLink').style.display = 'block';
+                }
+
+                // Set the edit profile link to the user’s ID
+                document.getElementById('editProfileLink').setAttribute('href', `/edit/${data.id}`);
+            } else {
+                alert('Failed to load user data');
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }
+
+    // Call the function on page load
+    window.onload = function() {
+        getUserData();
+    }
+</script>
+
 </body>
 </html>
-
